@@ -14,3 +14,12 @@ A project for my school that consists of an interactive and personalized agenda 
 2. I have nothing to do
 3. I always stay confused with school jobs, then i think this can help
 4. Its cool
+
+
+ __
+/_/\/\
+\_\  /
+/_/  \
+\_\/\ \
+   \_\/
+
