@@ -15,6 +15,9 @@ class App(CTk):
         self.resizable(width=False, height=False)
         self.configure(fg_color='#001321')
 
+        def fechar_main():
+            self.destroy()
+
         main_font = CTkFont(family='Segoe UI light', size=40)
         sup_font = CTkFont(family='Segoe UI light', size=20)
 
@@ -71,6 +74,14 @@ class App(CTk):
                            border_color=text_color)
         ent_senha.grid(row=0, column=0)
 
+        # Função do checkbox de esconder senha
+        check_senha_bool = BooleanVar(value=False)
+        def func_check_senha():
+            if check_senha_bool.get():
+                ent_senha.configure(show='*')
+            elif not check_senha_bool.get():
+                ent_senha.configure(show='')
+
         check_senha = CTkCheckBox(frame_senha,
                                   width=15,
                                   height=15,
@@ -79,7 +90,11 @@ class App(CTk):
                                   fg_color=main_color,
                                   border_color=text_color,
                                   border_width=2,
-                                  hover_color=main_color)
+                                  hover_color=main_color,
+                                  variable=check_senha_bool,
+                                  offvalue=False,
+                                  onvalue=True,
+                                  command=func_check_senha)
         check_senha.grid(row=0, column=1, padx=5)
 
         # Botão de LOGIN
@@ -91,7 +106,34 @@ class App(CTk):
                               text_color=text_color,
                               fg_color=main_color,
                               hover_color=sup_color)
-        but_login.grid(row=4, column=0, pady=15)
+        but_login.grid(row=4, column=0, pady=(15, 0))
+
+        # Botão de Cadastrar
+        def func_but_cadastrar():
+            # TopLevel do cadastro
+            class CadastrarTopLvl(CTkToplevel):
+                def __init__(self, master, **kwargs):
+                    super().__init__(master, **kwargs)
+                    self.resizable(False, False)
+                    self.title('Cadastrar')
+                    self.geometry('1840x960')
+                    self.protocol('WM_DELETE_WINDOW', fechar_main)
+            self.withdraw()
+            cadastrar_toplvl = CadastrarTopLvl(self)
+
+        but_cadastrar = CTkButton(frame_login,
+                                  width=100,
+                                  height=15,
+                                  bg_color='#061827',
+                                  fg_color='#061827',
+                                  hover_color='#061827',
+                                  text_color=main_color,
+                                  text='cadastrar',
+                                  font=CTkFont(family='Segoe UI light',
+                                               size=12,
+                                               underline=True),
+                                  command=func_but_cadastrar)
+        but_cadastrar.grid(row=5, column=0, pady=10)
 
 
 app = App()
